@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
  <PropertyGroup><OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><AssemblyName>WarbornLauncher.Next</AssemblyName><Version>0.1.0</Version></PropertyGroup>
- <ItemGroup><Resource Include="Assets/campaign.png"/></ItemGroup>
+ <ItemGroup><Resource Include="Assets/europe1100-knight.png"/></ItemGroup>
 </Project>
  

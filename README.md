@@ -10,7 +10,7 @@ This repository now also holds the new Warborn website and single-page Windows l
 - `launcher/`: WPF launcher (.NET 10 Windows Desktop). Checks local Steam Workshop modules, opens subscription links, and lists Warborn modules separately. English/Turkish/Russian interface and guarded Bannerlord text-language configuration.
 - `launcher-tests/`: localization and game configuration regression tests, plus website translation checks.
 
-The launcher deliberately disables Install/Update and Join until the signed own-mod updater and verified server connection are implemented. Discord account/game integration is also pending; the current Discord button is an invitation link. Installed modules are not necessarily version-compatible. Launcher background artwork is temporary.
+The launcher deliberately disables Install/Update and Join until the signed own-mod updater and verified server connection are implemented. Discord account/game integration is also pending; the current Discord button is an invitation link. Installed modules are not necessarily version-compatible. Both the website and launcher now use the user-selected Europe1100 knight artwork.
 
 ### Build and checks (Windows)
 
