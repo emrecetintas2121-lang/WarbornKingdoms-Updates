@@ -1,0 +1,15 @@
+.instructions a.button {
+  color: #142118;
+  background: #d2bc88;
+  border-color: #d2bc88;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+.instructions a.button:hover,
+.instructions a.button:focus-visible {
+  color: #101a13;
+  background: #e1cc99;
+  border-color: #e1cc99;
+  text-decoration: none;
+}
