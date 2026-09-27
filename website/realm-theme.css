@@ -2,3 +2,4 @@
 
 /* User-selected Europe1100 artwork: keep the knight centered across layouts. */
 .campaign-mark img{object-position:50% center;filter:saturate(.9) brightness(.95)}
+.server-endpoint{display:inline-block;color:#d2bc88;border:1px solid #53644a;border-radius:4px;padding:5px 8px;font:11px ui-monospace,Consolas,monospace;white-space:nowrap}
