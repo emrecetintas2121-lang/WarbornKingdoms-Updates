@@ -1,0 +1,22 @@
+<Module>
+ <Name value="Europe1100 COOP Local Fixes" />
+ <Id value="Local.EuropeCampaignFixes" />
+ <Version value="v0.1.3" />
+ <SingleplayerModule value="true" />
+ <MultiplayerModule value="false" />
+ <ModuleCategory value="Singleplayer" />
+ <DependedModules>
+  <DependedModule Id="Bannerlord.Harmony" />
+  <DependedModule Id="Native" />
+  <DependedModule Id="SandBoxCore" />
+  <DependedModule Id="Sandbox" />
+  <DependedModule Id="Europe1100" />
+  <DependedModule Id="CoopNightly" />
+ </DependedModules>
+ <SubModules><SubModule>
+  <Name value="Europe1100 Client Fixes" />
+  <DLLName value="Local.EuropeCampaignFixes.dll" />
+  <SubModuleClassType value="Local.EuropeCampaignFixes.SubModule" />
+  <Tags><Tag key="DedicatedServerType" value="none" /><Tag key="IsNoRenderModeElement" value="false" /></Tags>
+ </SubModule></SubModules>
+</Module>

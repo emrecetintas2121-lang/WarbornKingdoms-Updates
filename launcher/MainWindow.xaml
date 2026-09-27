@@ -1,15 +1,53 @@
-<Window x:Class="WarbornLauncher.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework" Title="Warborn Kingdoms · Europe1100" Width="1440" Height="840" MinWidth="1100" MinHeight="740" WindowStyle="None" ResizeMode="CanResize" WindowStartupLocation="CenterScreen" Background="#101A13" Foreground="#EEECE2" FontFamily="Segoe UI" UseLayoutRounding="True">
+<Window x:Class="WarbornLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Warborn Kingdoms · Europe1100" Width="1280" Height="760" MinWidth="1000" MinHeight="640"
+        WindowStyle="None" ResizeMode="CanResize" WindowStartupLocation="CenterScreen"
+        Background="#101A13" Foreground="#EEECE2" FontFamily="Segoe UI" UseLayoutRounding="True">
  <shell:WindowChrome.WindowChrome><shell:WindowChrome CaptionHeight="58" ResizeBorderThickness="6" GlassFrameThickness="0"/></shell:WindowChrome.WindowChrome>
- <Grid><Image Source="Assets/europe1100-knight.png" Stretch="UniformToFill" Opacity="0.8"/><Border><Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F10D170F" Offset="0"/><GradientStop Color="#D5101A12" Offset="0.4"/><GradientStop Color="#89101A12" Offset="1"/></LinearGradientBrush></Border.Background></Border>
- <Grid Margin="25,17,25,23"><Grid.RowDefinitions><RowDefinition Height="40"/><RowDefinition Height="*"/><RowDefinition Height="88"/></Grid.RowDefinitions>
-  <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel Orientation="Horizontal" VerticalAlignment="Center"><Border Width="8" Height="8" CornerRadius="4" Background="#A7BC82" Margin="0,0,10,0"/><TextBlock Text="WARBORN KINGDOMS" FontSize="13" FontWeight="SemiBold"/><TextBlock Text="  /  LAUNCHER" FontSize="10" Foreground="#AAB59F" VerticalAlignment="Center" Margin="8,0,0,0"/></StackPanel><StackPanel Grid.Column="1" Orientation="Horizontal"><ComboBox x:Name="LanguagePicker" SelectionChanged="LanguageChanged" Width="115" Margin="0,0,18,0" shell:WindowChrome.IsHitTestVisibleInChrome="True"><ComboBoxItem Content="English" Tag="en"/><ComboBoxItem Content="Türkçe" Tag="tr"/><ComboBoxItem Content="Русский" Tag="ru"/></ComboBox><Button Content="—" Width="34" Padding="0" Margin="0,0,5,0" Click="MinimizeClick" shell:WindowChrome.IsHitTestVisibleInChrome="True" AutomationProperties.Name="Minimize"/><Button Content="□" Width="34" Padding="0" Margin="0,0,5,0" Click="MaximizeClick" shell:WindowChrome.IsHitTestVisibleInChrome="True" AutomationProperties.Name="Maximize"/><Button Content="×" Width="34" Padding="0" Click="CloseClick" shell:WindowChrome.IsHitTestVisibleInChrome="True" AutomationProperties.Name="Close"/></StackPanel></Grid>
-  <Grid Grid.Row="1" Margin="0,14,0,15"><Grid.ColumnDefinitions><ColumnDefinition Width="470"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-   <Border Background="#ED111E14" BorderBrush="#67809462" BorderThickness="1" CornerRadius="16" Padding="20"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Tag="readyLabel" Foreground="#D1BA81" FontSize="9" FontWeight="SemiBold"/><TextBlock Text="Europe1100" FontSize="26" FontWeight="SemiBold" Margin="0,5,0,4"/><TextBlock Tag="steamDesc" Foreground="#AEBBA5" FontSize="11"/></StackPanel><Button Grid.Column="1" x:Name="RefreshButton" Tag="check" Click="RefreshClick" Padding="10,8" FontSize="10" VerticalAlignment="Top"/></Grid>
-   <Border Grid.Row="1" Background="#9A223024" BorderBrush="#4E819171" BorderThickness="1" CornerRadius="9" Margin="0,17,0,15" Padding="12"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel><TextBlock Tag="installTitle" FontSize="9" Foreground="#A8B69D"/><TextBlock x:Name="PathLabel" FontSize="10" Foreground="#D8DECE" TextTrimming="CharacterEllipsis" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,8,8,0"/></StackPanel><Button Grid.Column="1" Tag="folder" Click="FolderClick" Padding="8,6" FontSize="9" VerticalAlignment="Center"/></Grid></Border>
-   <DockPanel Grid.Row="2" Margin="0,0,0,11"><TextBlock Text="STEAM WORKSHOP" FontSize="10" Foreground="#D1BA81" FontWeight="SemiBold"/><TextBlock x:Name="WorkshopCount" FontSize="9" Foreground="#BBD09D" HorizontalAlignment="Right"/></DockPanel><ScrollViewer Grid.Row="3" x:Name="WorkshopScroll" VerticalScrollBarVisibility="Auto"><StackPanel x:Name="WorkshopCards"/></ScrollViewer></Grid></Border>
-   <Grid Grid.Column="1" Margin="38,0,10,0"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions><StackPanel VerticalAlignment="Center"><TextBlock Tag="campaignLabel" FontSize="9" Foreground="#D1BA81"/><TextBlock Text="Warborn" FontSize="59" FontWeight="Light" Margin="-3,12,0,0"/><TextBlock Text="Kingdoms." FontSize="59" FontWeight="Light" Foreground="#D1BA81" Margin="-3,-5,0,15"/><Border Width="65" Height="2" Background="#D1BA81" HorizontalAlignment="Left" Margin="0,0,0,18"/><TextBlock Tag="campaignLine" FontSize="12" Foreground="#C1CDB6" TextWrapping="Wrap"/><StackPanel Orientation="Horizontal" Margin="0,21,0,0"><Button Content="Discord ↗" Click="DiscordClick" Padding="15,9"/><Button Tag="website" Click="WebsiteClick" Padding="15,9" Margin="9,0,0,0"/></StackPanel></StackPanel>
-   <Border Grid.Row="1" Background="#CB111E14" BorderBrush="#67809462" BorderThickness="1" CornerRadius="11" Padding="16"><StackPanel><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Tag="owned" FontSize="10" Foreground="#D1BA81" FontWeight="SemiBold"/><Button Grid.Column="1" Tag="apply" Click="ApplyLanguageClick" FontSize="9" Padding="7,5"/></Grid><StackPanel x:Name="PrivateCards" Margin="0,12,0,0"/></StackPanel></Border></Grid>
+ <Grid>
+  <Image Source="Assets/europe1100-knight.png" Stretch="UniformToFill" Opacity="0.8"/>
+  <Border><Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F10D170F" Offset="0"/><GradientStop Color="#D5101A12" Offset="0.46"/><GradientStop Color="#89101A12" Offset="1"/></LinearGradientBrush></Border.Background></Border>
+  <Grid Margin="30,18,30,24">
+   <Grid.RowDefinitions><RowDefinition Height="48"/><RowDefinition Height="*"/><RowDefinition Height="94"/></Grid.RowDefinitions>
+   <Grid>
+    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center"><Border Width="8" Height="8" CornerRadius="4" Background="#A7BC82" Margin="0,0,10,0"/><TextBlock Text="WARBORN KINGDOMS" FontSize="13" FontWeight="SemiBold"/><TextBlock Text="  /  EUROPE1100" FontSize="10" Foreground="#AAB59F" VerticalAlignment="Center" Margin="8,0,0,0"/></StackPanel>
+    <StackPanel Grid.Column="1" Orientation="Horizontal">
+     <Button Tag="settings" Click="SettingsClick" Padding="14,8" Margin="0,0,14,0" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+     <Button Content="—" Width="34" Padding="0" Margin="0,0,5,0" Click="MinimizeClick" shell:WindowChrome.IsHitTestVisibleInChrome="True" AutomationProperties.Name="Minimize"/>
+     <Button Content="□" Width="34" Padding="0" Margin="0,0,5,0" Click="MaximizeClick" shell:WindowChrome.IsHitTestVisibleInChrome="True" AutomationProperties.Name="Maximize"/>
+     <Button Content="×" Width="34" Padding="0" Click="CloseClick" shell:WindowChrome.IsHitTestVisibleInChrome="True" AutomationProperties.Name="Exit"/>
+    </StackPanel>
+   </Grid>
+   <Grid Grid.Row="1" Margin="18,0,18,0">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" MaxWidth="690">
+     <TextBlock Tag="campaignLabel" FontSize="10" Foreground="#D1BA81"/>
+     <TextBlock Text="Warborn" FontSize="66" FontWeight="Light" Margin="-4,10,0,0"/>
+     <TextBlock Text="Kingdoms." FontSize="66" FontWeight="Light" Foreground="#D1BA81" Margin="-4,-6,0,16"/>
+     <Border Width="70" Height="2" Background="#D1BA81" HorizontalAlignment="Left" Margin="0,0,0,18"/>
+     <TextBlock Tag="campaignLine" FontSize="13" Foreground="#D3DCCB" TextWrapping="Wrap"/>
+     <Button Content="Discord  ↗" Click="DiscordClick" Padding="17,10" HorizontalAlignment="Left" Margin="0,24,0,0"/>
+    </StackPanel>
+    <Border x:Name="SettingsPanel" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Center" Width="440" Padding="24" CornerRadius="14" Background="#F1121E17" BorderBrush="#7C8C6D" BorderThickness="1">
+     <StackPanel>
+      <Grid Margin="0,0,0,18"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock Tag="settingsTitle" FontSize="18" FontWeight="SemiBold"/><Button Grid.Column="1" Content="×" Click="SettingsCloseClick" Padding="8,5"/></Grid>
+      <TextBlock Tag="language" FontSize="10" Foreground="#D1BA81" Margin="0,0,0,7"/>
+      <ComboBox x:Name="LanguagePicker" SelectionChanged="LanguageChanged" Margin="0,0,0,18" shell:WindowChrome.IsHitTestVisibleInChrome="True"><ComboBoxItem Content="English" Tag="en"/><ComboBoxItem Content="Türkçe" Tag="tr"/><ComboBoxItem Content="Русский" Tag="ru"/></ComboBox>
+      <TextBlock Tag="installTitle" FontSize="10" Foreground="#D1BA81" Margin="0,0,0,7"/>
+      <Grid Margin="0,0,0,18"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock x:Name="PathLabel" FontSize="10" Foreground="#D8DECE" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,0,10,0"/><Button Grid.Column="1" Tag="folder" Click="FolderClick" Padding="11,8"/></Grid>
+      <TextBlock x:Name="StatusLabel" FontSize="10" Foreground="#C6D1BD" TextWrapping="Wrap" Margin="0,0,0,15"/>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Button Tag="check" Click="RefreshClick" Padding="12,9" Margin="0,0,8,0"/><Button x:Name="UpdateButton" Tag="updateAction" Click="UpdateClick" Padding="14,9" Margin="0,0,8,0"/><Button Tag="apply" Click="ApplyLanguageClick" Padding="12,9"/></StackPanel>
+     </StackPanel>
+    </Border>
+   </Grid>
+   <Border Grid.Row="2" Background="#ED111E14" BorderBrush="#67809462" BorderThickness="1" CornerRadius="13" Padding="17,13">
+    <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+     <StackPanel Margin="0,0,20,0" VerticalAlignment="Center"><TextBlock Tag="profileLabel" Foreground="#D1BA81" FontSize="9"/><TextBlock x:Name="BottomStatusLabel" FontSize="10" Foreground="#AEBBA5" TextWrapping="Wrap" Margin="0,7,0,0"/></StackPanel>
+     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"><Button x:Name="StartButton" Tag="startAction" Click="PlayClick" Padding="19,13" Margin="0,0,8,0" Background="#29372B" ToolTip="Start the game only"/><Button x:Name="JoinButton" Tag="joinAction" Click="JoinWarbornClick" Padding="21,13" Background="#BCD18C" Foreground="#112015" BorderBrush="#BCD18C" ToolTip="Connect to the Warborn COOP server"/></StackPanel>
+    </Grid>
+   </Border>
   </Grid>
-  <Border Grid.Row="2" Background="#ED111E14" BorderBrush="#67809462" BorderThickness="1" CornerRadius="13" Padding="18,14"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><StackPanel Margin="0,0,20,0" VerticalAlignment="Center"><TextBlock Tag="profileLabel" Foreground="#D1BA81" FontSize="9"/><TextBlock x:Name="StatusLabel" FontSize="10" Foreground="#AEBBA5" TextWrapping="Wrap" Margin="0,7,0,0"/></StackPanel><StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"><Button x:Name="UpdateButton" Tag="updateAction" Click="UpdateClick" Padding="18,12" Margin="0,0,10,0" ToolTip="Signed Warborn mod update"/><Button x:Name="PlayButton" Tag="joinAction" Click="PlayClick" Padding="24,12" Background="#BCD18C" Foreground="#112015" BorderBrush="#BCD18C" ToolTip="Open Bannerlord through Steam"/></StackPanel></Grid></Border>
- </Grid></Grid>
+ </Grid>
 </Window>
