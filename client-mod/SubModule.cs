@@ -20,6 +20,8 @@ namespace Local.EuropeCampaignFixes
   private static bool mainMenuReady;
   private static bool openingRequestedConnection;
   private static bool joinMenuConfigured;
+  private static bool speedPatchInstalled;
+  private static bool speedPatchWarningLogged;
   protected override void OnApplicationTick(float dt)
   {
    base.OnApplicationTick(dt);
@@ -30,6 +32,7 @@ namespace Local.EuropeCampaignFixes
     if(!joinRequestPending)joinRequestPending=HasJoinRequest();
     TryOpenWarbornConnection();
     if(!joinMenuConfigured)ConfigureWarbornMenuOption();
+    if(!speedPatchInstalled)InstallSpeed();
    }
    int gc0=GC.CollectionCount(0), gc1=GC.CollectionCount(1), gc2=GC.CollectionCount(2);
    double gap = previousTick == 0 ? 0 : (now-previousTick)*1000d/System.Diagnostics.Stopwatch.Frequency;
@@ -145,12 +148,18 @@ namespace Local.EuropeCampaignFixes
   }
   private static void InstallSpeed()
   {
-   if (Campaign.Current == null) return;
-   var model = Campaign.Current.Models.PartySpeedCalculatingModel;
+   var model = Campaign.Current?.Models?.PartySpeedCalculatingModel;
+   if(model==null)return; // OnGameStart can run before campaign models are registered.
    var method = AccessTools.Method(model.GetType(), "CalculateFinalSpeed", new[] { typeof(MobileParty), typeof(ExplainedNumber) });
-   if (method == null) throw new MissingMethodException("Active party speed model CalculateFinalSpeed");
-   if (!PatchOnce.Postfix(method, AccessTools.Method(typeof(SubModule), nameof(AddMapSpeed)))) return;
-   Diagnostics.Write("EUROPE_MAP_SPEED_PLUS_TWO_INSTALLED model=" + model.GetType().FullName);
+   if(method==null)
+   {
+    if(!speedPatchWarningLogged)Diagnostics.Write("EUROPE_MAP_SPEED_MODEL_UNSUPPORTED model="+model.GetType().FullName);
+    speedPatchWarningLogged=true;
+    return;
+   }
+   if(PatchOnce.Postfix(method, AccessTools.Method(typeof(SubModule), nameof(AddMapSpeed))))
+    Diagnostics.Write("EUROPE_MAP_SPEED_PLUS_TWO_INSTALLED model=" + model.GetType().FullName);
+   speedPatchInstalled=true;
   }
   private static void AddMapSpeed(ref ExplainedNumber __result)
   {
