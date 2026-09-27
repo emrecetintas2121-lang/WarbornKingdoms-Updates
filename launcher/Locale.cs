@@ -13,7 +13,7 @@ internal static class Locale
   ["missingRequirements"]=["Install all required Steam mods and the Warborn module first.","Önce gerekli Steam modlarını ve Warborn modunu kur.","Сначала установите необходимые моды Steam и Warborn."],
   ["launchInstructions"]=["In the game launcher enable Europe1100 + COOP + Europe1100 COOP Fixes and their libraries, then join through COOP. Connection help: Discord.","Oyun launcher'ında Europe1100 + COOP + Europe1100 COOP Fixes ve kütüphanelerini etkinleştir; sonra COOP üzerinden katıl. Bağlantı desteği: Discord.","В лаунчере игры включите Europe1100, COOP, Europe1100 COOP Fixes и библиотеки, затем войдите через COOP. Помощь: Discord."],
   ["campaignLabel"]=["THE WARBORN CAMPAIGN","WARBORN KAMPANYASI","КАМПАНИЯ WARBORN"],
-  ["campaignLine"]=["Mount & Blade II: Bannerlord · Cooperative campaign · Server 159.146.11.20:4200","Mount & Blade II: Bannerlord · Ortak kampanya · Sunucu 159.146.11.20:4200","Mount & Blade II: Bannerlord · Совместная кампания · Сервер 159.146.11.20:4200"],
+  ["campaignLine"]=["Mount & Blade II: Bannerlord · Cooperative campaign · Server server.warbornkingdoms.com:4200","Mount & Blade II: Bannerlord · Ortak kampanya · Sunucu server.warbornkingdoms.com:4200","Mount & Blade II: Bannerlord · Совместная кампания · Сервер server.warbornkingdoms.com:4200"],
   ["profileLabel"]=["EUROPE1100 PROFILE","EUROPE1100 PROFİLİ","ПРОФИЛЬ EUROPE1100"],
   ["hub"]=["CAMPAIGN HUB","KAMPANYA MERKEZİ","ЦЕНТР КАМПАНИИ"],
   ["home"]=["⌂   Overview","⌂   Genel bakış","⌂   Обзор"], ["mods"]=["▦   Mod library","▦   Mod kütüphanesi","▦   Библиотека модов"],
