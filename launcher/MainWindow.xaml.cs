@@ -19,22 +19,15 @@ public partial class MainWindow:Window
  private async Task UpdateOwnMod()
  {
   if(updating)return;if(GameRunning()){SetStatus(Locale.Get("closeGame"));return;}
-  updating=true;updateVerified=false;UpdateButton.IsEnabled=false;StartButton.IsEnabled=false;JoinButton.IsEnabled=false;LanguagePicker.IsEnabled=false;
+  updating=true;updateVerified=false;UpdateButton.IsEnabled=false;StartButton.IsEnabled=false;LanguagePicker.IsEnabled=false;
   try{SetStatus(Locale.Get("verifying"));await ModUpdater.Update(gameRoot,text=>SetStatus(text));updateVerified=true;Refresh();SetStatus(Locale.Get("modReady"));}
   catch(Exception e)when(e is not OutOfMemoryException and not StackOverflowException){SetStatus(Locale.Get("updateFailed")+" "+e.Message);}
-  finally{updating=false;UpdateButton.IsEnabled=true;StartButton.IsEnabled=true;JoinButton.IsEnabled=true;LanguagePicker.IsEnabled=true;}
+  finally{updating=false;UpdateButton.IsEnabled=true;StartButton.IsEnabled=true;LanguagePicker.IsEnabled=true;}
  }
- private async void PlayClick(object sender,RoutedEventArgs e)=>await LaunchGame(false);
- private async void JoinWarbornClick(object sender,RoutedEventArgs e)=>await LaunchGame(true);
- private async Task LaunchGame(bool joinWarborn)
+ private async void PlayClick(object sender,RoutedEventArgs e)=>await LaunchGame();
+ private async Task LaunchGame()
  {
-  if(GameRunning())
-  {
-   if(!joinWarborn){SetStatus(Locale.Get("closeGame"));return;}
-   if(!updateVerified){SetStatus(Locale.Get("closeGame"));return;}
-   try{WriteJoinRequest();SetStatus(Locale.Get("joinRequested"));}catch(Exception requestError)when(requestError is IOException or UnauthorizedAccessException){SetStatus(Locale.Get("joinRequestFailed")+" "+requestError.Message);}
-   return;
-  }
+  if(GameRunning()){SetStatus(Locale.Get("closeGame"));return;}
   if(workshop.Any(m=>ReadModule(m).Version==null)){SetStatus(Locale.Get("missingRequirements"));return;}
   await UpdateOwnMod();if(!updateVerified)return;
   if(!TryGetSelectedModules(out var modules,out var error)){SetStatus(error);return;}
@@ -45,17 +38,10 @@ public partial class MainWindow:Window
    var moduleArgument="_MODULES_*"+string.Join("*",modules)+"*_MODULES_";
    var start=new ProcessStartInfo(executable){WorkingDirectory=gameRoot,UseShellExecute=false};
    start.ArgumentList.Add("/singleplayer");start.ArgumentList.Add(moduleArgument);
-   if(joinWarborn)WriteJoinRequest();
    Process.Start(start);
-   SetStatus(Locale.Get(joinWarborn?"joiningWarborn":"gameStarted"));
+   SetStatus(Locale.Get("gameStarted"));
   }
-  catch(Exception gameError)when(gameError is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception or InvalidOperationException){SetStatus(Locale.Get(joinWarborn?"joinRequestFailed":"gameStartFailed")+" "+gameError.Message);}
- }
- private static void WriteJoinRequest()
- {
-  string directory=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"WarbornLauncher");
-  Directory.CreateDirectory(directory);
-  File.WriteAllText(Path.Combine(directory,"join-warborn.request"),DateTime.UtcNow.ToString("O",System.Globalization.CultureInfo.InvariantCulture));
+  catch(Exception gameError)when(gameError is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception or InvalidOperationException){SetStatus(Locale.Get("gameStartFailed")+" "+gameError.Message);}
  }
  private void SetStatus(string message){StatusLabel.Text=message;BottomStatusLabel.Text=message;}
  private bool TryGetSelectedModules(out string[] modules,out string error)

@@ -38,14 +38,14 @@
       <TextBlock Tag="installTitle" FontSize="10" Foreground="#D1BA81" Margin="0,0,0,7"/>
       <Grid Margin="0,0,0,18"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBlock x:Name="PathLabel" FontSize="10" Foreground="#D8DECE" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,0,10,0"/><Button Grid.Column="1" Tag="folder" Click="FolderClick" Padding="11,8"/></Grid>
       <TextBlock x:Name="StatusLabel" FontSize="10" Foreground="#C6D1BD" TextWrapping="Wrap" Margin="0,0,0,15"/>
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Button Tag="check" Click="RefreshClick" Padding="12,9" Margin="0,0,8,0"/><Button x:Name="UpdateButton" Tag="updateAction" Click="UpdateClick" Padding="14,9" Margin="0,0,8,0"/><Button Tag="apply" Click="ApplyLanguageClick" Padding="12,9"/></StackPanel>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Button Tag="check" Click="RefreshClick" Padding="12,9" Margin="0,0,8,0"/><Button Tag="apply" Click="ApplyLanguageClick" Padding="12,9"/></StackPanel>
      </StackPanel>
     </Border>
    </Grid>
    <Border Grid.Row="2" Background="#ED111E14" BorderBrush="#67809462" BorderThickness="1" CornerRadius="13" Padding="17,13">
     <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
      <StackPanel Margin="0,0,20,0" VerticalAlignment="Center"><TextBlock Tag="profileLabel" Foreground="#D1BA81" FontSize="9"/><TextBlock x:Name="BottomStatusLabel" FontSize="10" Foreground="#AEBBA5" TextWrapping="Wrap" Margin="0,7,0,0"/></StackPanel>
-     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"><Button x:Name="StartButton" Tag="startAction" Click="PlayClick" Padding="19,13" Margin="0,0,8,0" Background="#29372B" ToolTip="Start the game only"/><Button x:Name="JoinButton" Tag="joinAction" Click="JoinWarbornClick" Padding="21,13" Background="#BCD18C" Foreground="#112015" BorderBrush="#BCD18C" ToolTip="Connect to the Warborn COOP server"/></StackPanel>
+     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center"><Button x:Name="UpdateButton" Tag="updateAction" Click="UpdateClick" Padding="18,13" Margin="0,0,8,0"/><Button x:Name="StartButton" Tag="startAction" Click="PlayClick" Padding="21,13" Background="#BCD18C" Foreground="#112015" BorderBrush="#BCD18C" ToolTip="Start Bannerlord; join Warborn from the game menu"/></StackPanel>
     </Grid>
    </Border>
   </Grid>
