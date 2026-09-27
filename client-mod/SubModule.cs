@@ -19,6 +19,7 @@ namespace Local.EuropeCampaignFixes
   private static bool joinRequestPending;
   private static bool mainMenuReady;
   private static bool openingRequestedConnection;
+  private static bool joinMenuConfigured;
   protected override void OnApplicationTick(float dt)
   {
    base.OnApplicationTick(dt);
@@ -28,6 +29,7 @@ namespace Local.EuropeCampaignFixes
     lastJoinCheck=now;
     if(!joinRequestPending)joinRequestPending=HasJoinRequest();
     TryOpenWarbornConnection();
+    if(!joinMenuConfigured)ConfigureWarbornMenuOption();
    }
    int gc0=GC.CollectionCount(0), gc1=GC.CollectionCount(1), gc2=GC.CollectionCount(2);
    double gap = previousTick == 0 ? 0 : (now-previousTick)*1000d/System.Diagnostics.Stopwatch.Frequency;
@@ -45,6 +47,10 @@ namespace Local.EuropeCampaignFixes
    joinRequestPending=HasJoinRequest();
    var connectionInit=AccessTools.Method(typeof(GameInterface.Services.UI.CoopConnectionUI),"OnInitialize");
    if(connectionInit!=null)Patch.Patch(connectionInit,postfix:new HarmonyMethod(typeof(SubModule),nameof(ConnectToWarborn)));
+   var coopMod=AccessTools.TypeByName("Coop.CoopMod");
+   var beforeInitialScreen=AccessTools.Method(coopMod,"OnBeforeInitialModuleScreenSetAsRoot");
+   if(beforeInitialScreen!=null)Patch.Patch(beforeInitialScreen,postfix:new HarmonyMethod(typeof(SubModule),nameof(OnCoopModuleReady)));
+   ConfigureWarbornMenuOption();
    var mainMenuActivate=AccessTools.Method(typeof(InitialState),"OnActivate");
    if(mainMenuActivate!=null)Patch.Patch(mainMenuActivate,postfix:new HarmonyMethod(typeof(SubModule),nameof(MarkMainMenuReady)));
    Diagnostics.Write("WARBORN_JOIN_AUTOCONNECT="+joinRequestPending);
@@ -58,6 +64,34 @@ namespace Local.EuropeCampaignFixes
    catch(Exception error) { Diagnostics.Write("EUROPE_GAME_THREAD_BUDGET_FIX_FAILED: "+error); }
    try { NpcPositionFix.Install(); }
    catch(Exception error) { Diagnostics.Write("EUROPE_NPC_POSITION_FIX_FAILED: "+error); }
+  }
+  private static void ConfigureWarbornMenuOption()
+  {
+   try
+   {
+    var coopMod=AccessTools.TypeByName("Coop.CoopMod");
+    var joinOption=AccessTools.Field(coopMod,"JoinCoopGame")?.GetValue(null) as InitialStateOption;
+    var joinWindow=AccessTools.Method(coopMod,"JoinWindow");
+    if(joinOption==null||joinWindow==null)return;
+    AccessTools.PropertySetter(typeof(InitialStateOption),"Name")?.Invoke(joinOption,new object[]{new TextObject("Join Warborn Kingdoms")});
+    Patch.Patch(joinWindow,prefix:new HarmonyMethod(typeof(SubModule),nameof(OpenWarbornFromGameMenu)));
+    joinMenuConfigured=true;
+    Diagnostics.Write("WARBORN_MAIN_MENU_OPTION_CONFIGURED");
+   }
+   catch(Exception error){Diagnostics.Write("WARBORN_MAIN_MENU_OPTION_FAILED: "+error);}
+  }
+  private static void OnCoopModuleReady()=>ConfigureWarbornMenuOption();
+  private static bool OpenWarbornFromGameMenu()
+  {
+   try
+   {
+    openingRequestedConnection=true;
+    ScreenManager.PushScreen(new GameInterface.Services.UI.CoopConnectionUI());
+    Diagnostics.Write("WARBORN_GAME_MENU_JOIN_SELECTED");
+    return false;
+   }
+   catch(Exception error){Diagnostics.Write("WARBORN_GAME_MENU_JOIN_FAILED: "+error);return true;}
+   finally{openingRequestedConnection=false;}
   }
   private static string JoinRequestPath=>System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"WarbornLauncher","join-warborn.request");
   private static void MarkMainMenuReady()=>mainMenuReady=true;
